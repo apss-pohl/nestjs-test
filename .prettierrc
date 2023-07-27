@@ -1,4 +1,16 @@
 {
+  "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "auto",
+  "overrides":[ {
+    "files": "*.html",
+    "options": {
+      "parser": "html"
+    }
+  }]
 }
