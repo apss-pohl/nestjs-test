@@ -1,6 +1,6 @@
-# electron-app
+# 2
 
-An Electron application with Vue and TypeScript
+A minimal Electron application with TypeScript
 
 ## Recommended IDE Setup
 
@@ -11,24 +11,24 @@ An Electron application with Vue and TypeScript
 ### Install
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 ### Development
 
 ```bash
-$ npm run dev
+$ yarn dev
 ```
 
 ### Build
 
 ```bash
 # For windows
-$ npm run build:win
+$ yarn build:win
 
 # For macOS
-$ npm run build:mac
+$ yarn build:mac
 
 # For Linux
-$ npm run build:linux
+$ yarn build:linux
 ```

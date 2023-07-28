@@ -1,15 +1,4 @@
 {
   "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }],
-  "exclude": [
-    "scripts",
-    "node_modules",
-    "**/node_modules",
-    "**/dist",
-    "**/prisma",
-    "**/.output",
-    "**/.turbo",
-    "**/.nuxt",
-    "**/*spec.ts"
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
 }
