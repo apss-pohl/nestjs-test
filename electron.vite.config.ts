@@ -18,54 +18,47 @@ export const EXTERNAL_PACKAGES = [
   ...builtinModules.flatMap((p) => [p, `node:${p}`]),
 ];
 
-export default defineConfig((viteArguments) => {
-  console.log(viteArguments);
-  console.log(resolve(__dirname, './dist/main'));
-
-  const options = {
-    main: {
-      root: resolve(__dirname, './apps/main'),
-      envDir: resolve(__dirname, './apps/main'),
-      resolve: {
-        alias,
-      },
-      plugins: [externalizeDepsPlugin(), swcPlugin()],
-      build: {
-        outDir: resolve(__dirname, './dist/main'),
-        rollupOptions: {
-          external: EXTERNAL_PACKAGES,
-          input: {
-            index: resolve(__dirname, 'apps/main/src/main.ts'),
-          },
+export default defineConfig({
+  main: {
+    plugins: [
+      externalizeDepsPlugin({ exclude: ['@nestjs/websockets/socket-module'] }),
+      swcPlugin(),
+    ],
+    build: {
+      rollupOptions: {
+        //external: EXTERNAL_PACKAGES,
+        input: {
+          index: resolve(__dirname, 'apps/main/src/main.ts'),
         },
-      },
-      optimizeDeps: {
-        exclude: EXTERNAL_PACKAGES,
-      },
-    },
-    preload: {
-      plugins: [externalizeDepsPlugin(), swcPlugin()],
-      build: {
-        outDir: resolve(__dirname, './dist/preload'),
-        rollupOptions: {
-          input: {
-            index: resolve(__dirname, './apps/preload/index.ts'),
+        output: {
+          manualChunks(id) {
+            //console.log(id);
+            if (id.includes('@nestjs/websockets/socket-module')) {
+              return '@nestjs/websockets/socket-module';
+            }
           },
         },
       },
     },
-    renderer: {
-      root: '.',
-      build: {
-        rollupOptions: {
-          input: {
-            index: resolve(__dirname, './apps/renderer/index.html'),
-          },
+  },
+  preload: {
+    plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'apps/preload/index.ts'),
         },
       },
     },
-  };
-
-  // console.log(options);
-  return options;
+  },
+  renderer: {
+    root: './apps/renderer',
+    build: {
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'apps/renderer/index.html'),
+        },
+      },
+    },
+  },
 });
